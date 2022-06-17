@@ -1,4 +1,5 @@
 *.worksheet.sc
+.env
 .ammonite/
 .bloop/
 .bsp/
