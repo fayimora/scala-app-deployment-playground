@@ -58,10 +58,10 @@ lazy val dockerSettings = Seq(
   dockerUpdateLatest := true,
   dockerRepository := sys.env.get("ECR_REPO"),
   Docker / publishLocal := (Docker / publishLocal).value,
-  Docker / version := git
+  Docker / version := s"${version.value}-${git
     .gitDescribedVersion
     .value
-    .getOrElse(git.formattedShaVersion.value.getOrElse("latest")),
+    .getOrElse(git.formattedShaVersion.value.getOrElse("latest"))}",
   git.uncommittedSignifier := Some("dirty"),
   ThisBuild / git.formattedShaVersion := {
     val base = git.baseVersion.?.value
