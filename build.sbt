@@ -56,6 +56,7 @@ lazy val dockerSettings = Seq(
   Docker / packageName := "scala-app-deployment-playground",
   dockerUsername := Some("fayimora"),
   dockerUpdateLatest := true,
+  dockerRepository := sys.env.get("ECR_REPO"),
   Docker / publishLocal := (Docker / publishLocal).value,
   Docker / version := git
     .gitDescribedVersion
