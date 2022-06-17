@@ -35,7 +35,7 @@ lazy val `scala-app-deployment-playground` =
     .settings(commonSettings)
     .settings(dependencies)
     .settings(fatJarSettings)
-    // .settings(dockerSettings)
+    .settings(dockerSettings)
 
 lazy val commonSettings = commonScalacOptions ++ Seq(
   update / evictionWarningOptions := EvictionWarningOptions.empty
@@ -51,7 +51,7 @@ lazy val commonScalacOptions = Seq(
 )
 
 lazy val dockerSettings = Seq(
-  dockerExposedPorts := Seq(8080),
+  dockerExposedPorts := Seq(8090),
   dockerBaseImage := "openjdk:11",
   Docker / packageName := "scala-app-deployment-playground",
   dockerUsername := Some("fayimora"),
@@ -107,6 +107,8 @@ lazy val buildInfoSettings = Seq(
 lazy val dependencies = Seq(
   libraryDependencies ++= Seq(
     // main dependencies
+    "dev.zio" %% "zio" % "2.0.0-RC6",
+    "io.d11" %% "zhttp" % "2.0.0-RC9",
   ),
   libraryDependencies ++= Seq(
     org.scalatest.scalatest,
