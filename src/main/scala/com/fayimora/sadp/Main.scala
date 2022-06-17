@@ -1,8 +1,14 @@
 package com.fayimora.sadp
 
-@main def Main(args: String*): Unit =
-  println("─" * 100)
+import zio.*
+import zhttp.http.*
+import zhttp.service.Server
 
-  println("hello world")
+object Main extends ZIOAppDefault:
+  val app = Http.collect[Request] {
+    case Method.GET -> !! / "hello" =>
+      Response.text("Hello World!")
+  }
 
-  println("─" * 100)
+  override def run =
+    Server.start(8090, app).exitCode
