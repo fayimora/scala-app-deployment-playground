@@ -58,21 +58,22 @@ lazy val dockerSettings = Seq(
   dockerUpdateLatest := true,
   // dockerRepository := sys.env.get("ECR_REPO"),
   Docker / publishLocal := (Docker / publishLocal).value,
-  Docker / version := s"${version.value}-${git
-    .gitDescribedVersion
-    .value
-    .getOrElse(git.formattedShaVersion.value.getOrElse("latest"))}",
-  git.uncommittedSignifier := Some("dirty"),
-  ThisBuild / git.formattedShaVersion := {
-    val base = git.baseVersion.?.value
-    val suffix = git.makeUncommittedSignifierSuffix(
-      git.gitUncommittedChanges.value,
-      git.uncommittedSignifier.value,
-    )
-    git.gitHeadCommit.value.map { sha =>
-      git.defaultFormatShaVersion(base, sha.take(7), suffix)
-    }
-  },
+  Docker / version := s"${version.value}"
+  // Docker / version := s"${version.value}-${git
+  //   .gitDescribedVersion
+  //   .value
+  //   .getOrElse(git.formattedShaVersion.value.getOrElse("latest"))}",
+  // git.uncommittedSignifier := Some("dirty"),
+  // ThisBuild / git.formattedShaVersion := {
+  //   val base = git.baseVersion.?.value
+  //   val suffix = git.makeUncommittedSignifierSuffix(
+  //     git.gitUncommittedChanges.value,
+  //     git.uncommittedSignifier.value,
+  //   )
+  //   git.gitHeadCommit.value.map { sha =>
+  //     git.defaultFormatShaVersion(base, sha.take(7), suffix)
+  //   }
+  // },
 )
 
 lazy val fatJarSettings = Seq(
