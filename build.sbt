@@ -53,10 +53,10 @@ lazy val commonScalacOptions = Seq(
 lazy val dockerSettings = Seq(
   dockerExposedPorts := Seq(8090),
   dockerBaseImage := "openjdk:11",
-  Docker / packageName := "scala-app-deployment-playground",
-  dockerUsername := Some("fayimora"),
+  Docker / packageName := "zio-hello-world",
+  dockerUsername := Some("fayi"),
   dockerUpdateLatest := true,
-  dockerRepository := sys.env.get("ECR_REPO"),
+  // dockerRepository := sys.env.get("ECR_REPO"),
   Docker / publishLocal := (Docker / publishLocal).value,
   Docker / version := s"${version.value}-${git
     .gitDescribedVersion
