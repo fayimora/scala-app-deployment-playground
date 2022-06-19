@@ -1,0 +1,18 @@
+services:
+  scala-sbt:
+    image: "sbtscala/scala-sbt:11.0.15_1.6.2_3.1.2"
+    command: "sbt \"clean; assembly\""
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - ~/.sbt:/root/.sbt
+      - ~/.ivy:/root/.ivy
+    environment:
+      - SCALA_VERSION="${SCALA_VERSION:-3.1.2}"
+
+  app:
+    image: ${IMAGE_HUB:-}${IMAGE_NAME:-fayi/scala-app-deployment-playground}:${IMAGE_TAG:-}
+    ports:
+      - "8080:8090"
+    build:
+      context: .
