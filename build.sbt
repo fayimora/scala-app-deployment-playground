@@ -1,6 +1,7 @@
 import sbtbuildinfo.BuildInfoKey.action
 import sbtbuildinfo.BuildInfoKeys.{ buildInfoKeys, buildInfoOptions, buildInfoPackage }
 import sbtbuildinfo.{ BuildInfoKey, BuildInfoOption }
+import sbtassembly.AssemblyPlugin.defaultUniversalScript
 
 import Dependencies._
 import scala.util.Try
@@ -23,6 +24,9 @@ ThisBuild / scalacOptions ++=
     "-Ysafe-init", // experimental (I've seen it cause issues with circe)
   ) ++ Seq("-rewrite", "-indent") ++ Seq("-source", "future-migration")
 
+ThisBuild / assemblyPrependShellScript := Some(defaultUniversalScript(shebang = true))
+
+
 lazy val `scala-app-deployment-playground` =
   project
     .settings(
@@ -35,7 +39,8 @@ lazy val `scala-app-deployment-playground` =
     .settings(commonSettings)
     .settings(dependencies)
     .settings(fatJarSettings)
-    .settings(dockerSettings)
+    // .settings()
+    // .settings(dockerSettings)
 
 lazy val commonSettings = commonScalacOptions ++ Seq(
   update / evictionWarningOptions := EvictionWarningOptions.empty
@@ -54,7 +59,7 @@ lazy val dockerSettings = Seq(
   dockerExposedPorts := Seq(8090),
   dockerBaseImage := "openjdk:11",
   Docker / packageName := "zio-hello-world",
-  dockerUsername := Some("fayi"),
+  // dockerUsername := Some("fayi"),
   dockerUpdateLatest := true,
   // dockerRepository := sys.env.get("ECR_REPO"),
   Docker / publishLocal := (Docker / publishLocal).value,
@@ -77,9 +82,10 @@ lazy val dockerSettings = Seq(
 )
 
 lazy val fatJarSettings = Seq(
-  assembly / assemblyJarName := "scala-app-deployment-playground.jar",
+  // assembly / assemblyJarName := "zio-hello-world.jar",
+  assembly / assemblyJarName := s"${name.value}-${version.value}",
   assembly / assemblyMergeStrategy := {
-    // case PathList(ps @ _*) if ps.last endsWith "io.netty.versions.properties"       => MergeStrategy.first
+    case PathList(ps @ _*) if ps.last endsWith "io.netty.versions.properties"       => MergeStrategy.first
     // case PathList(ps @ _*) if ps.last endsWith "pom.properties"                     => MergeStrategy.first
     // case PathList(ps @ _*) if ps.last endsWith "scala-collection-compat.properties" => MergeStrategy.first
     case x =>
