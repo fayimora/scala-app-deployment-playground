@@ -19,8 +19,7 @@ jobs:
 
       - name: Set Variables
         run: |
-          ls
-          # grep -o 'v\d*\.\d*\.\d*' version.sbt
+          grep -oP 'v\d*\.\d*\.\d*' version.sbt
           # VER=$(grep -o 'v\d*\.\d*\.\d*' version.sbt)
           # echo "VERSION=$VER" >> $GITHUB_ENV
 
