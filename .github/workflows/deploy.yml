@@ -19,7 +19,7 @@ jobs:
 
       - name: Set Variables
         run: |
-          # VER=$(grep -o 'v\d*\.\d*\.\d*' version.sbt)
+          VER=$(grep -o 'v\d*\.\d*\.\d*' version.sbt)
           echo "VERSION=$VER" >> $GITHUB_ENV
 
       - name: Configure AWS credentials
