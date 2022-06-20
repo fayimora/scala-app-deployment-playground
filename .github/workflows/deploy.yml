@@ -1,8 +1,12 @@
 name: Deploy to ECR
 
 on:
-  push:
-    branches: ["main"]
+  workflow_run:
+    workflows: ["Scala CI"]
+    branches:
+      - main
+    types:
+      - completed
 
 jobs:
   build:
