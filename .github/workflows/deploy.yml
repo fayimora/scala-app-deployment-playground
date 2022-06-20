@@ -19,9 +19,8 @@ jobs:
 
       - name: Set Variables
         run: |
-          grep -oP 'v\d*\.\d*\.\d*' version.sbt
-          # VER=$(grep -o 'v\d*\.\d*\.\d*' version.sbt)
-          # echo "VERSION=$VER" >> $GITHUB_ENV
+          VER=$(grep -oP 'v\d*\.\d*\.\d*' version.sbt)
+          echo "VERSION=$VER" >> $GITHUB_ENV
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -41,7 +40,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: fayi/my-ecr-repo
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: ${{ env.VERSION }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
