@@ -5,9 +5,9 @@ echo Running [$0]
 
 
 ## Post execution handler
-post_execution_handler() {
-  ## Post Execution
-}
+# post_execution_handler() {
+#   ## Post Execution
+# }
 
 ## Sigterm Handler
 sigterm_handler() {
@@ -41,7 +41,7 @@ wait "$pid"
 return_code="$?"
 
 ## Cleanup
-post_execution_handler
+# post_execution_handler
 
 # echo the return code of the application
 exit $return_code
