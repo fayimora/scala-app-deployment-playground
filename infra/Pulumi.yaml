@@ -1,0 +1,3 @@
+name: scala-deploy-test
+runtime: nodejs
+description: Deploy test

@@ -12,3 +12,4 @@
 metals.sbt
 target/
 .history/
+**/node_modules/
